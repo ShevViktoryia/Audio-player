@@ -131,7 +131,7 @@ function createCard(curItem) {
   progressLine.value = 0;
   const currentTime = document.createElement('div');
   currentTime.className = 'current-time';
-  currentTime.textContent = '0:00';
+  currentTime.textContent = getTime(Math.floor(audio.currentTime));
   songDesription.append(singer);
   songDesription.append(song);
   btnWrapper.append(prevBtn);
@@ -185,8 +185,8 @@ function playMusic() {
     audio.currentTime = progressLine.value;
   };
 }
+createCard(curItem);
 function createPlayList() {
-  createCard(curItem);
   const playIcon = document.querySelector('.play');
   playIcon.addEventListener('click', function () {
     playMusic();
@@ -978,7 +978,7 @@ __webpack_require__.r(__webpack_exports__);
 // Imports
 
 var ___HTML_LOADER_IMPORT_0___ = new URL(/* asset import */ __webpack_require__(/*! ./assets/svg/play.png */ "./assets/svg/play.png"), __webpack_require__.b);
-var ___HTML_LOADER_IMPORT_1___ = new URL(/* asset import */ __webpack_require__(/*! ./dist/bundle.js */ "./dist/bundle.js"), __webpack_require__.b);
+var ___HTML_LOADER_IMPORT_1___ = new URL(/* asset import */ __webpack_require__(/*! ./script.js */ "./script.js?f372"), __webpack_require__.b);
 // Module
 var ___HTML_LOADER_REPLACEMENT_0___ = _node_modules_html_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_0___default()(___HTML_LOADER_IMPORT_0___);
 var ___HTML_LOADER_REPLACEMENT_1___ = _node_modules_html_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_0___default()(___HTML_LOADER_IMPORT_1___);
@@ -1344,13 +1344,13 @@ module.exports = styleTagTransform;
 
 /***/ }),
 
-/***/ "./dist/bundle.js":
-/*!************************!*\
-  !*** ./dist/bundle.js ***!
-  \************************/
+/***/ "./script.js?f372":
+/*!*******************!*\
+  !*** ./script.js ***!
+  \*******************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-module.exports = __webpack_require__.p + "assets/bundle.js";
+module.exports = __webpack_require__.p + "assets/script.js";
 
 /***/ }),
 
