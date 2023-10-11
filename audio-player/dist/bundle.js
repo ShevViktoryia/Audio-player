@@ -13,28 +13,234 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _img_lemonade_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../img/lemonade.png */ "./assets/img/lemonade.png");
-/* harmony import */ var _img_dontstartnow_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../img/dontstartnow.png */ "./assets/img/dontstartnow.png");
+/* harmony import */ var _audio_beyonce_mp3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../audio/beyonce.mp3 */ "./assets/audio/beyonce.mp3");
+/* harmony import */ var _img_dontstartnow_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../img/dontstartnow.png */ "./assets/img/dontstartnow.png");
+/* harmony import */ var _audio_dontstartnow_mp3__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../audio/dontstartnow.mp3 */ "./assets/audio/dontstartnow.mp3");
 
-// import firstSong from '../audio/beyonce.mp3';
 
-// import secondSong from '../audio/dontstartnow.mp3';
+
 
 const playList = [{
-  id: 1,
+  id: 0,
   singer: 'Beyonce',
   title: 'Don\'t hurt yourself',
   img: _img_lemonade_png__WEBPACK_IMPORTED_MODULE_0__,
-  // src: firstSong,
+  src: _audio_beyonce_mp3__WEBPACK_IMPORTED_MODULE_1__["default"],
   duration: '03:53'
 }, {
-  id: 2,
+  id: 1,
   singer: 'Dua Lipa',
   title: 'Don\'t start now',
-  img: _img_dontstartnow_png__WEBPACK_IMPORTED_MODULE_1__,
-  // src: secondSong,
+  img: _img_dontstartnow_png__WEBPACK_IMPORTED_MODULE_2__,
+  src: _audio_dontstartnow_mp3__WEBPACK_IMPORTED_MODULE_3__["default"],
   duration: '03:23'
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (playList);
+
+/***/ }),
+
+/***/ "./assets/scripts/createPlayList.js":
+/*!******************************************!*\
+  !*** ./assets/scripts/createPlayList.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ createPlayList)
+/* harmony export */ });
+/* harmony import */ var _data_playList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../data/playList */ "./assets/data/playList.js");
+/* harmony import */ var _svg_play_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../svg/play.png */ "./assets/svg/play.png");
+/* harmony import */ var _svg_pause_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../svg/pause.png */ "./assets/svg/pause.png");
+/* harmony import */ var _svg_backward_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../svg/backward.png */ "./assets/svg/backward.png");
+/* harmony import */ var _svg_forward_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../svg/forward.png */ "./assets/svg/forward.png");
+/* harmony import */ var _scripts_state__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../scripts/state */ "./assets/scripts/state.js");
+
+
+
+
+
+
+const audio = new Audio();
+let curItem = 0;
+function playAudio(curItem) {
+  audio.src = _data_playList__WEBPACK_IMPORTED_MODULE_0__["default"][curItem].src;
+  audio.play();
+}
+function pauseAudio() {
+  audio.pause();
+}
+function getTime(time) {
+  let minutes = Math.floor(time / 60);
+  let seconds = Math.floor(time - minutes * 60);
+  if (seconds < 10) {
+    seconds = `0${seconds}`;
+  }
+  return `${minutes}:${seconds}`;
+}
+;
+function createCard(curItem) {
+  const body = document.body;
+  const bgImage = document.createElement('img');
+  body.innerHTML = '';
+  bgImage.className = 'bgImage';
+  bgImage.setAttribute('src', _data_playList__WEBPACK_IMPORTED_MODULE_0__["default"][curItem].img);
+  bgImage.setAttribute('alt', _data_playList__WEBPACK_IMPORTED_MODULE_0__["default"][curItem].singer);
+  body.append(bgImage);
+  const playerCard = document.createElement('div');
+  playerCard.className = 'player-card';
+  const playerImg = document.createElement('img');
+  playerImg.className = 'player-img';
+  playerImg.setAttribute('src', _data_playList__WEBPACK_IMPORTED_MODULE_0__["default"][curItem].img);
+  playerImg.setAttribute('alt', _data_playList__WEBPACK_IMPORTED_MODULE_0__["default"][curItem].singer);
+  const btmPlayerWrap = document.createElement('div');
+  btmPlayerWrap.className = 'player-btm-wrapper';
+  const playerBtm = document.createElement('div');
+  playerBtm.className = 'player-btm';
+  const playBtn = document.createElement('img');
+  playBtn.className = 'play';
+  playBtn.setAttribute('src', _svg_play_png__WEBPACK_IMPORTED_MODULE_1__);
+  playBtn.setAttribute('alt', 'play_button');
+  const songDesription = document.createElement('div');
+  songDesription.className = 'song-desription';
+  const singer = document.createElement('h2');
+  singer.className = 'singer';
+  singer.textContent = _data_playList__WEBPACK_IMPORTED_MODULE_0__["default"][curItem].singer;
+  const song = document.createElement('p');
+  song.className = 'song';
+  song.textContent = _data_playList__WEBPACK_IMPORTED_MODULE_0__["default"][curItem].title;
+  const btnWrapper = document.createElement('div');
+  btnWrapper.className = 'btn-wrapper';
+  const prevBtn = document.createElement('img');
+  prevBtn.className = 'prev-btn';
+  prevBtn.setAttribute('src', _svg_backward_png__WEBPACK_IMPORTED_MODULE_3__);
+  prevBtn.setAttribute('alt', 'backward_button');
+  const nextBtn = document.createElement('img');
+  nextBtn.className = 'next-btn';
+  nextBtn.setAttribute('src', _svg_forward_png__WEBPACK_IMPORTED_MODULE_4__);
+  nextBtn.setAttribute('alt', 'forward_button');
+  const durationProgress = document.createElement('div');
+  durationProgress.className = 'duration-progress';
+  const audioDuration = document.createElement('div');
+  audioDuration.className = 'audio-duration';
+  audioDuration.textContent = _data_playList__WEBPACK_IMPORTED_MODULE_0__["default"][curItem].duration;
+  const progressLine = document.createElement('input');
+  progressLine.className = 'progress-line';
+  progressLine.setAttribute('type', 'range');
+  progressLine.setAttribute('step', '1');
+  progressLine.value = 0;
+  const currentTime = document.createElement('div');
+  currentTime.className = 'current-time';
+  currentTime.textContent = '0:00';
+  songDesription.append(singer);
+  songDesription.append(song);
+  btnWrapper.append(prevBtn);
+  btnWrapper.append(nextBtn);
+  playerBtm.append(playBtn);
+  playerBtm.append(songDesription);
+  playerBtm.append(btnWrapper);
+  durationProgress.append(audioDuration);
+  durationProgress.append(progressLine);
+  durationProgress.append(currentTime);
+  playerCard.append(playerImg);
+  btmPlayerWrap.append(playerBtm);
+  btmPlayerWrap.append(durationProgress);
+  playerCard.append(btmPlayerWrap);
+  body.append(playerCard);
+}
+function playMusic() {
+  const playIcon = document.querySelector('.play');
+  const currentTimeProgress = document.querySelector('.current-time');
+  const progressLine = document.querySelector('.progress-line');
+  if (_scripts_state__WEBPACK_IMPORTED_MODULE_5__["default"].isPlay == false) {
+    _scripts_state__WEBPACK_IMPORTED_MODULE_5__["default"].isPlay = true;
+    if (!playIcon.classList.contains('pause')) {
+      playIcon.classList.add('pause');
+      playIcon.setAttribute('src', _svg_pause_png__WEBPACK_IMPORTED_MODULE_2__);
+      audio.ontimeupdate = () => {
+        currentTimeProgress.textContent = getTime(Math.floor(audio.currentTime));
+        progressLine.max = audio.duration;
+        progressLine.value = audio.currentTime;
+      };
+      audio.onended = () => {
+        curItem == _data_playList__WEBPACK_IMPORTED_MODULE_0__["default"].length - 1 ? curItem = 0 : curItem++;
+        createCard(curItem);
+        _scripts_state__WEBPACK_IMPORTED_MODULE_5__["default"].isPlay = false;
+        createPlayList();
+        playMusic();
+      };
+      playAudio(curItem);
+    } else {
+      playIcon.classList.remove('pause');
+      playIcon.setAttribute('src', _svg_play_png__WEBPACK_IMPORTED_MODULE_1__);
+      pauseAudio();
+    }
+  } else {
+    _scripts_state__WEBPACK_IMPORTED_MODULE_5__["default"].isPlay = false;
+    playIcon.classList.toggle('pause');
+    playIcon.setAttribute('src', _svg_play_png__WEBPACK_IMPORTED_MODULE_1__);
+    pauseAudio();
+  }
+  progressLine.oninput = () => {
+    audio.currentTime = progressLine.value;
+  };
+}
+function createPlayList() {
+  createCard(curItem);
+  const playIcon = document.querySelector('.play');
+  playIcon.addEventListener('click', function () {
+    playMusic();
+  });
+  const playPrev = document.querySelector('.prev-btn');
+  const playNext = document.querySelector('.next-btn');
+  playPrev.onclick = () => {
+    if (curItem == 0) {
+      curItem = _data_playList__WEBPACK_IMPORTED_MODULE_0__["default"].length - 1;
+      createCard(curItem);
+      _scripts_state__WEBPACK_IMPORTED_MODULE_5__["default"].isPlay = false;
+      createPlayList();
+      playMusic();
+    } else {
+      curItem--;
+      createCard(curItem);
+      _scripts_state__WEBPACK_IMPORTED_MODULE_5__["default"].isPlay = false;
+      createPlayList();
+      playMusic();
+    }
+  };
+  playNext.addEventListener('click', function () {
+    if (curItem == _data_playList__WEBPACK_IMPORTED_MODULE_0__["default"].length - 1) {
+      curItem = 0;
+      createCard(curItem);
+      _scripts_state__WEBPACK_IMPORTED_MODULE_5__["default"].isPlay = false;
+      createPlayList();
+      playMusic();
+    } else {
+      curItem++;
+      createCard(curItem);
+      _scripts_state__WEBPACK_IMPORTED_MODULE_5__["default"].isPlay = false;
+      createPlayList();
+      playMusic();
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./assets/scripts/state.js":
+/*!*********************************!*\
+  !*** ./assets/scripts/state.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+let state = {
+  isPlay: false
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (state);
 
 /***/ }),
 
@@ -478,11 +684,18 @@ body {
   justify-content: flex-start;
   overflow: hidden;
   position: relative;
-  height: 25em;
+  height: 26em;
   width: 20em;
   z-index: 8;
   border-radius: 10px;
   box-shadow: 0 0 10px #000000;
+  transition: width 0.5s ease;
+}
+@media screen and (max-width: 430px) {
+  .player-card {
+    width: 15em;
+    height: 20em;
+  }
 }
 
 .player-img {
@@ -490,15 +703,23 @@ body {
   transition: 1s;
 }
 
+.player-btm-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  width: 100%;
+  background: -webkit-linear-gradient(25deg, rgb(64, 60, 60), rgb(103, 96, 96));
+  padding: 0 20px;
+}
+
 .player-btm {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 50%;
   width: 100%;
-  background: -webkit-linear-gradient(25deg, rgb(64, 60, 60), rgb(103, 96, 96));
-  padding: 0 20px;
 }
 
 .btn-wrapper {
@@ -536,7 +757,59 @@ body {
   width: 30px;
   filter: invert(1);
   cursor: pointer;
-}`, "",{"version":3,"sources":["webpack://./assets/sass/pages/_index.sass","webpack://./assets/sass/core/_mixin.sass","webpack://./assets/sass/core/_base.sass"],"names":[],"mappings":"AAIA;EACE,sBAAA;EACA,uBAAA;AAFF;;AAIA;EACI,mBAAA;AADJ;;AAGA;EACE,UAAA;EACA,SAAA;AAAF;;AAEA;ECdE,aDeiB;ECdjB,mBDcuB;ECbvB,mBDa4B;ECZ5B,uBDYoC;EACpC,kBAAA;EACA,oBAAA;EACA,YAAA;EACA,WAAA;EACA,mBAAA;EACA,mBAAA;EACA,eAAA;EACA,yBEvBY;AF2Bd;;AAFA;EACE,kBAAA;EACA,kBAAA;EACA,WAAA;EACA,cAAA;EACA,eAAA;AAKF;;AAHA;EChCE,aDiCiB;EChCjB,sBDgCuB;EC/BvB,mBD+B+B;EC9B/B,2BD8BuC;EACvC,gBAAA;EACA,kBAAA;EACA,YAAA;EACA,WAAA;EACA,UAAA;EACA,mBAAA;EACA,4BAAA;AASF;;AAPA;EACE,WAAA;EACA,cAAA;AAUF;;AARA;EC9CE,aD+CiB;EC9CjB,mBD8CuB;EC7CvB,mBD6C4B;EC5C5B,8BD4CoC;EACpC,WAAA;EACA,WAAA;EACA,6EAAA;EACA,eAAA;AAcF;;AAZA;ECrDE,aDsDiB;ECrDjB,sBDqDuB;ECpDvB,mBDoD+B;ECnD/B,uBDmDuC;AAkBzC;;AAhBA;EACE,YAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AAmBF;;AAjBA;EC9DE,aD+DiB;EC9DjB,sBD8DuB;EC7DvB,qBD6D+B;EC5D/B,uBD4DyC;AAuB3C;;AArBA;EACE,cEjEY;AFyFd;;AAtBA;EACE,cEtEY;EFuEZ,eAAA;AAyBF;;AAvBA;EACE,YAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AA0BF","sourcesContent":["@import '../../css/normolize.css'\r\n@import '../core/_base'\r\n@import '../core/_mixin'\r\n\r\nhtml\r\n  box-sizing: border-box\r\n  scroll-behavior: smooth\r\n\r\n*, *::after, *::before\r\n    box-sizing: inherit\r\n\r\nh2, p\r\n  padding: 0\r\n  margin: 0\r\n\r\nbody\r\n  @include display(flex, row, center, center)\r\n  position: absolute\r\n  font-family: 'Inter'\r\n  height: 100%\r\n  width: 100%\r\n  letter-spacing: 2px\r\n  font-weight: normal\r\n  font-size: 20px\r\n  background-color: $black_color\r\n\r\n.bgImage\r\n  position: absolute\r\n  filter: blur(10px)\r\n  z-index: -1\r\n  width: inherit\r\n  height: inherit\r\n\r\n.player-card\r\n  @include display(flex, column, center, flex-start)\r\n  overflow: hidden\r\n  position: relative\r\n  height: 25em\r\n  width: 20em\r\n  z-index: 8\r\n  border-radius: 10px\r\n  box-shadow: 0 0 10px $black_color\r\n\r\n.player-img\r\n  width: 100%\r\n  transition: 1s\r\n\r\n.player-btm\r\n  @include display(flex, row, center, space-between)\r\n  height: 50%\r\n  width: 100%\r\n  background: -webkit-linear-gradient(25deg, rgb(64, 60, 60), rgb(103, 96, 96))\r\n  padding: 0 20px\r\n\r\n.btn-wrapper\r\n  @include display(flex, column, center, center)\r\n\r\n.play\r\n  height: 50px\r\n  width: 50px\r\n  filter: invert(1)\r\n  cursor: pointer\r\n\r\n.song-desription\r\n  @include display(flex, column, baseline, center)\r\n\r\n.singer\r\n  color: $green_color\r\n\r\n.song\r\n  color: $white_color\r\n  font-size: 16px\r\n\r\n.prev-btn, .next-btn\r\n  height: 30px\r\n  width: 30px\r\n  filter: invert(1)\r\n  cursor: pointer","@mixin display($display, $direction, $align, $justify)\r\n  display: $display\r\n  flex-direction: $direction\r\n  align-items: $align\r\n  justify-content: $justify","$white_color: #FFFFFF\r\n$black_color: #000000\r\n$green_color: #7ae54c"],"sourceRoot":""}]);
+}
+
+.duration-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: center;
+  width: 80%;
+  padding: 10px 0;
+}
+
+.audio-duration, .current-time {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  align-items: center;
+}
+
+.audio-duration {
+  align-self: flex-end;
+  color: rgb(193, 255, 6);
+}
+
+.current-time {
+  align-self: flex-start;
+  color: #FFFFFF;
+}
+
+.progress-line {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  cursor: pointer;
+  width: 100%;
+  height: 5px;
+  transition: 2s;
+  border-radius: 10px;
+  background: #000000;
+  margin: 5px 0;
+}
+.progress-line::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 7px;
+  height: 10px;
+  border-radius: 10px;
+  background: rgb(193, 255, 6);
+}
+.progress-line::-moz-range-thumb {
+  width: 7px;
+  border-radius: 10px;
+  height: 10px;
+  background: rgb(193, 255, 6);
+}`, "",{"version":3,"sources":["webpack://./assets/sass/pages/_index.sass","webpack://./assets/sass/core/_mixin.sass","webpack://./assets/sass/core/_base.sass"],"names":[],"mappings":"AAIA;EACE,sBAAA;EACA,uBAAA;AAFF;;AAIA;EACI,mBAAA;AADJ;;AAGA;EACE,UAAA;EACA,SAAA;AAAF;;AAEA;ECdE,aDeiB;ECdjB,mBDcuB;ECbvB,mBDa4B;ECZ5B,uBDYoC;EACpC,kBAAA;EACA,oBAAA;EACA,YAAA;EACA,WAAA;EACA,mBAAA;EACA,mBAAA;EACA,eAAA;EACA,yBEvBY;AF2Bd;;AAFA;EACE,kBAAA;EACA,kBAAA;EACA,WAAA;EACA,cAAA;EACA,eAAA;AAKF;;AAHA;EChCE,aDiCiB;EChCjB,sBDgCuB;EC/BvB,mBD+B+B;EC9B/B,2BD8BuC;EACvC,gBAAA;EACA,kBAAA;EACA,YAAA;EACA,WAAA;EACA,UAAA;EACA,mBAAA;EACA,4BAAA;EACA,2BAAA;AASF;AARE;EAVF;IAWI,WAAA;IACA,YAAA;EAWF;AACF;;AAVA;EACE,WAAA;EACA,cAAA;AAaF;;AAXA;EClDE,aDmDiB;EClDjB,sBDkDuB;ECjDvB,mBDiD+B;EChD/B,uBDgDuC;EACvC,WAAA;EACA,WAAA;EACA,6EAAA;EACA,eAAA;AAiBF;;AAfA;ECzDE,aD0DiB;ECzDjB,mBDyDuB;ECxDvB,mBDwD4B;ECvD5B,8BDuDoC;EACpC,WAAA;AAqBF;;AAnBA;EC7DE,aD8DiB;EC7DjB,sBD6DuB;EC5DvB,mBD4D+B;EC3D/B,uBD2DuC;AAyBzC;;AAvBA;EACE,YAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AA0BF;;AAxBA;ECtEE,aDuEiB;ECtEjB,sBDsEuB;ECrEvB,qBDqE+B;ECpE/B,uBDoEyC;AA8B3C;;AA5BA;EACE,cEzEY;AFwGd;;AA7BA;EACE,cE9EY;EF+EZ,eAAA;AAgCF;;AA9BA;EACE,YAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;AAiCF;;AA/BA;ECtFE,aDuFiB;ECtFjB,sBDsFuB;ECrFvB,qBDqF+B;ECpF/B,uBDoFyC;EACzC,UAAA;EACA,eAAA;AAqCF;;AAnCA;EACE,qCAAA;EACA,eAAA;EACA,mBAAA;AAsCF;;AApCA;EACE,oBAAA;EACA,uBEhGW;AFuIb;;AArCA;EACE,sBAAA;EACA,cEvGY;AF+Id;;AAtCA;EACE,wBAAA;KAAA,qBAAA;UAAA,gBAAA;EACA,eAAA;EACA,WAAA;EACA,WAAA;EACA,cAAA;EACA,mBAAA;EACA,mBE/GY;EFgHZ,aAAA;AAyCF;AAxCE;EACE,wBAAA;EACA,gBAAA;EACA,UAAA;EACA,YAAA;EACA,mBAAA;EACA,4BErHS;AF+Jb;AAzCE;EACE,UAAA;EACA,mBAAA;EACA,YAAA;EACA,4BE1HS;AFqKb","sourcesContent":["@import '../../css/normolize.css'\r\n@import '../core/_base'\r\n@import '../core/_mixin'\r\n\r\nhtml\r\n  box-sizing: border-box\r\n  scroll-behavior: smooth\r\n\r\n*, *::after, *::before\r\n    box-sizing: inherit\r\n\r\nh2, p\r\n  padding: 0\r\n  margin: 0\r\n\r\nbody\r\n  @include display(flex, row, center, center)\r\n  position: absolute\r\n  font-family: 'Inter'\r\n  height: 100%\r\n  width: 100%\r\n  letter-spacing: 2px\r\n  font-weight: normal\r\n  font-size: 20px\r\n  background-color: $black_color\r\n\r\n.bgImage\r\n  position: absolute\r\n  filter: blur(10px)\r\n  z-index: -1\r\n  width: inherit\r\n  height: inherit\r\n\r\n.player-card\r\n  @include display(flex, column, center, flex-start)\r\n  overflow: hidden\r\n  position: relative\r\n  height: 26em\r\n  width: 20em\r\n  z-index: 8\r\n  border-radius: 10px\r\n  box-shadow: 0 0 10px $black_color\r\n  transition: width 0.5s ease\r\n  @media screen and (max-width: 430px)\r\n    width: 15em\r\n    height: 20em\r\n\r\n.player-img\r\n  width: 100%\r\n  transition: 1s\r\n\r\n.player-btm-wrapper\r\n  @include display(flex, column, center, center)\r\n  height: 50%\r\n  width: 100%\r\n  background: -webkit-linear-gradient(25deg, rgb(64, 60, 60), rgb(103, 96, 96))\r\n  padding: 0 20px\r\n\r\n.player-btm\r\n  @include display(flex, row, center, space-between)\r\n  width: 100%\r\n\r\n.btn-wrapper\r\n  @include display(flex, column, center, center)\r\n\r\n.play\r\n  height: 50px\r\n  width: 50px\r\n  filter: invert(1)\r\n  cursor: pointer\r\n\r\n.song-desription\r\n  @include display(flex, column, baseline, center)\r\n\r\n.singer\r\n  color: $green_color\r\n\r\n.song\r\n  color: $white_color\r\n  font-size: 16px\r\n\r\n.prev-btn, .next-btn\r\n  height: 30px\r\n  width: 30px\r\n  filter: invert(1)\r\n  cursor: pointer\r\n\r\n.duration-progress\r\n  @include display(flex, column, baseline, center)\r\n  width: 80%\r\n  padding: 10px 0\r\n\r\n.audio-duration, .current-time\r\n  font-family: 'Montserrat', sans-serif\r\n  font-size: 13px\r\n  align-items: center\r\n\r\n.audio-duration\r\n  align-self: flex-end\r\n  color: $lime_color\r\n\r\n.current-time\r\n  align-self: flex-start\r\n  color: $white_color\r\n\r\n.progress-line\r\n  appearance: none\r\n  cursor: pointer\r\n  width: 100%\r\n  height: 5px\r\n  transition: 2s\r\n  border-radius: 10px\r\n  background: $black_color\r\n  margin: 5px 0\r\n  &::-webkit-slider-thumb\r\n    -webkit-appearance: none\r\n    appearance: none\r\n    width: 7px\r\n    height: 10px\r\n    border-radius: 10px\r\n    background: $lime_color\r\n  &::-moz-range-thumb\r\n    width: 7px\r\n    border-radius: 10px\r\n    height: 10px\r\n    background: $lime_color\r\n","@mixin display($display, $direction, $align, $justify)\r\n  display: $display\r\n  flex-direction: $direction\r\n  align-items: $align\r\n  justify-content: $justify","$white_color: #FFFFFF\r\n$black_color: #000000\r\n$green_color: #7ae54c\r\n$lime_color: rgb(193, 255, 6)"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -659,6 +932,34 @@ module.exports = function (item) {
   }
   return [content].join("\n");
 };
+
+/***/ }),
+
+/***/ "./assets/audio/beyonce.mp3":
+/*!**********************************!*\
+  !*** ./assets/audio/beyonce.mp3 ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "67caca53f236e97d220982007986fbcd.mp3");
+
+/***/ }),
+
+/***/ "./assets/audio/dontstartnow.mp3":
+/*!***************************************!*\
+  !*** ./assets/audio/dontstartnow.mp3 ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "51b56bcabe90d282007069c3d35eb115.mp3");
 
 /***/ }),
 
@@ -1259,66 +1560,11 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.html */ "./index.html");
 /* harmony import */ var _assets_sass_pages_index_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./assets/sass/pages/_index.sass */ "./assets/sass/pages/_index.sass");
-/* harmony import */ var _assets_data_playList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./assets/data/playList */ "./assets/data/playList.js");
-/* harmony import */ var _assets_svg_play_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./assets/svg/play.png */ "./assets/svg/play.png");
-/* harmony import */ var _assets_svg_pause_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./assets/svg/pause.png */ "./assets/svg/pause.png");
-/* harmony import */ var _assets_svg_backward_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./assets/svg/backward.png */ "./assets/svg/backward.png");
-/* harmony import */ var _assets_svg_forward_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./assets/svg/forward.png */ "./assets/svg/forward.png");
+/* harmony import */ var _assets_scripts_createPlayList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./assets/scripts/createPlayList */ "./assets/scripts/createPlayList.js");
 
 
 
-
-
-
-
-const body = document.body;
-const bgImage = document.createElement('img');
-bgImage.className = 'bgImage';
-bgImage.setAttribute('src', _assets_data_playList__WEBPACK_IMPORTED_MODULE_2__["default"][0].img);
-bgImage.setAttribute('alt', _assets_data_playList__WEBPACK_IMPORTED_MODULE_2__["default"][0].singer);
-body.append(bgImage);
-_assets_data_playList__WEBPACK_IMPORTED_MODULE_2__["default"].forEach(item => {
-  const playerCard = document.createElement('div');
-  playerCard.className = 'player-card';
-  const playerImg = document.createElement('img');
-  playerImg.className = 'player-img';
-  playerImg.setAttribute('src', item.img);
-  playerImg.setAttribute('alt', item.singer);
-  const playerBtm = document.createElement('div');
-  playerBtm.className = 'player-btm';
-  const playBtn = document.createElement('img');
-  playBtn.className = 'play';
-  !playBtn.classList.contains('pause') ? playBtn.setAttribute('src', _assets_svg_play_png__WEBPACK_IMPORTED_MODULE_3__) : playBtn.setAttribute('src', _assets_svg_pause_png__WEBPACK_IMPORTED_MODULE_4__);
-  playBtn.setAttribute('alt', 'play_button');
-  const songDesription = document.createElement('div');
-  songDesription.className = 'song-desription';
-  const singer = document.createElement('h2');
-  singer.className = 'singer';
-  singer.textContent = item.singer;
-  const song = document.createElement('p');
-  song.className = 'song';
-  song.textContent = item.title;
-  const btnWrapper = document.createElement('div');
-  btnWrapper.className = 'btn-wrapper';
-  const prevBtn = document.createElement('img');
-  prevBtn.className = 'prev-btn';
-  prevBtn.setAttribute('src', _assets_svg_backward_png__WEBPACK_IMPORTED_MODULE_5__);
-  prevBtn.setAttribute('alt', 'backward_button');
-  const nextBtn = document.createElement('img');
-  nextBtn.className = 'next-btn';
-  nextBtn.setAttribute('src', _assets_svg_forward_png__WEBPACK_IMPORTED_MODULE_6__);
-  nextBtn.setAttribute('alt', 'forward_button');
-  songDesription.append(singer);
-  songDesription.append(song);
-  btnWrapper.append(prevBtn);
-  btnWrapper.append(nextBtn);
-  playerBtm.append(playBtn);
-  playerBtm.append(songDesription);
-  playerBtm.append(btnWrapper);
-  playerCard.append(playerImg);
-  playerCard.append(playerBtm);
-  body.append(playerCard);
-});
+(0,_assets_scripts_createPlayList__WEBPACK_IMPORTED_MODULE_2__["default"])();
 })();
 
 /******/ })()
